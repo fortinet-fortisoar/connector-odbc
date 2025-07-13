@@ -1,0 +1,62 @@
+{
+  "name": "odbc",
+  "label": "ODBC",
+  "description": "ODBC (Open Database Connectivity) allows applications to access data from different database systems (e.g., MySQL, SQL Server, Oracle). It enables interoperability between applications and databases through an ODBC driver.",
+  "publisher": "Fortinet",
+  "cs_approved": true,
+  "cs_compatible": true,
+  "version": "1.0.0",
+  "category": "Database",
+  "help_online": "",
+  "icon_small_name": "",
+  "icon_large_name": "",
+  "configuration": {
+    "fields": [
+      {
+        "title": "DSN Name",
+        "name": "dsn_name",
+        "type": "text",
+        "description": "Specify the Data Source Name to establish the ODBC connection.",
+        "tooltip": "Specify the Data Source Name to establish the ODBC connection.",
+        "required": true,
+        "editable": true,
+        "visible": true
+      },
+      {
+        "title": "Auto Commit",
+        "name": "auto_commit",
+        "type": "checkbox",
+        "description": "Enable this option to automatically commit each SQL statement after execution without requiring an explicit commit.",
+        "tooltip": "If enabled, each SQL operation will be committed automatically. Disable it if you want to manage transactions manually.",
+        "required": false,
+        "editable": true,
+        "visible": true,
+        "value": true
+      }
+    ]
+  },
+  "operations": [
+    {
+      "operation": "execute_query",
+      "title": "Execute Query",
+      "category": "investigation",
+      "annotation": "execute_query",
+      "description": "Executes a custom SQL query on the connected ODBC data source and returns the result set.",
+      "parameters": [
+        {
+          "title": "Query",
+          "tooltip": "Specify the SQL query string to be executed on the target ODBC database.",
+          "name": "query",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "placeholder": "SELECT * FROM view WHERE email = 'xyz@cibc.com'",
+          "description": "Specify the SQL query string to be executed on the target ODBC database."
+        }
+      ],
+      "enabled": true,
+      "output_schema": {}
+    }
+  ]
+}
