@@ -13,14 +13,148 @@
   "configuration": {
     "fields": [
       {
-        "title": "DSN Name",
-        "name": "dsn_name",
-        "type": "text",
-        "description": "Specify the Data Source Name to establish the ODBC connection.",
-        "tooltip": "Specify the Data Source Name to establish the ODBC connection.",
+        "title": "Connect By",
         "required": true,
         "editable": true,
-        "visible": true
+        "visible": true,
+        "type": "select",
+        "options": [
+          "Using DSN",
+          "Using a DSN-less connection"
+        ],
+        "name": "connection_type",
+        "value": "Using DSN",
+        "description": "Select the method to establish the ODBC connection: either by using a pre-configured DSN on the system or by providing a full DSN-less connection string.",
+        "onchange": {
+          "Using DSN": [
+            {
+              "title": "DSN Name",
+              "name": "dsn_name",
+              "type": "text",
+              "description": "Specify the Data Source Name to establish the ODBC connection.",
+              "tooltip": "Specify the Data Source Name to establish the ODBC connection.",
+              "required": true,
+              "editable": true,
+              "visible": true
+            }
+          ],
+          "Using a DSN-less connection": [
+            {
+              "title": "ODBC Driver",
+              "name": "driver",
+              "type": "text",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "The name of the installed ODBC driver to use.",
+              "description": "Name of the ODBC driver (as registered in the system), e.g., 'PostgreSQL', 'MySQL ODBC 8.0 Unicode Driver', or 'Simba Spark ODBC Driver'."
+            },
+            {
+              "title": "Host",
+              "name": "host",
+              "type": "text",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "Hostname of the workspace.",
+              "description": "Hostname of your cluster (e.g., adb-xxx.azuredatabricks.net)."
+            },
+            {
+              "title": "Database",
+              "name": "database",
+              "type": "text",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "Name of the database to connect to. For SQLite, provide the full path to the .db file.",
+              "description": "Specify the database name (e.g., 'employees', 'testdb'). For SQLite, this should be the full file path to the .db file."
+            },
+            {
+              "title": "Port",
+              "name": "port",
+              "type": "integer",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "ODBC port number. Default is 443.",
+              "description": "Port used for the ODBC connection. Defaults to 443 if not specified.",
+              "value": 443
+            },
+            {
+              "title": "HTTP Path",
+              "name": "http_path",
+              "type": "text",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "Full HTTP Path used for the ODBC connection.",
+              "description": "Full HTTP Path used for the ODBC connection."
+            },
+            {
+              "title": "Authentication Mechanism",
+              "name": "auth_mech",
+              "type": "integer",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "Authentication method for the ODBC driver. For tokens, use 3. Default is 3.",
+              "description": "Value for AuthMech parameter (use '3' when authenticating with a Databricks personal access token)."
+            },
+            {
+              "title": "Username",
+              "name": "username",
+              "type": "text",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "ODBC Username. Default is 'token'.",
+              "description": "Username for ODBC authentication. For Azure Databricks, this should be 'token'.",
+              "value": "token"
+            },
+            {
+              "title": "Access Token",
+              "name": "token",
+              "type": "password",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "Personal access token used for authentication.",
+              "description": "Specify personal access token (PAT) used for authentication."
+            },
+            {
+              "title": "SSL",
+              "name": "ssl",
+              "type": "integer",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "Enable SSL for secure connection. For Databricks specify 1.",
+              "description": "Enable SSL for secure encrypted communication. For Databricks specify 1.",
+              "value": 1
+            },
+            {
+              "title": "Thrift Transport",
+              "name": "thrift_transport",
+              "type": "integer",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "Specify the thrift transport. For Databricks specify 2.",
+              "description": "Specify the thrift transport. For Databricks specify 2.",
+              "value": 2
+            },
+            {
+              "title": "Additional Connection Parameters",
+              "name": "extra_options",
+              "type": "text",
+              "description": "Any additional ODBC connection parameters (e.g., ReadOnly=1;Timeout=10;).",
+              "tooltip": "Specify any custom ODBC options not listed above.",
+              "required": false,
+              "editable": true,
+              "visible": true
+            }
+          ]
+        }
       },
       {
         "title": "Auto Commit",
