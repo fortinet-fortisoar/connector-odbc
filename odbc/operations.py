@@ -12,7 +12,7 @@ logger = get_logger('odbc')
 
 
 def connect_to_db(config):
-    if config.get("connection_type") == "Using DSN":
+    if config.get("connection_type") == "Connect using a DSN (Data Source Name)":
         conn_str = f"DSN={config.get('dsn_name')};"
     else:
         conn_items = [
