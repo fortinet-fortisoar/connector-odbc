@@ -8,8 +8,8 @@
   "version": "1.0.0",
   "category": "Database",
   "help_online": "",
-  "icon_small_name": "",
-  "icon_large_name": "",
+  "icon_small_name": "small.png",
+  "icon_large_name": "large.png",
   "configuration": {
     "fields": [
       {
