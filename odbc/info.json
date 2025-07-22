@@ -1,0 +1,196 @@
+{
+  "name": "odbc",
+  "label": "ODBC",
+  "description": "ODBC (Open Database Connectivity) allows applications to access data from different database systems (e.g., MySQL, SQL Server, Oracle). It enables interoperability between applications and databases through an ODBC driver.",
+  "publisher": "Fortinet",
+  "cs_approved": true,
+  "cs_compatible": true,
+  "version": "1.0.0",
+  "category": "Database",
+  "help_online": "",
+  "icon_small_name": "small.png",
+  "icon_large_name": "large.png",
+  "configuration": {
+    "fields": [
+      {
+        "title": "Connection Method",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "select",
+        "options": [
+          "Connect using a DSN (Data Source Name)",
+          "Connect using a DSN-less connection"
+        ],
+        "name": "connection_type",
+        "value": "Using DSN",
+        "description": "Select the method to establish the ODBC connection: either by using a pre-configured DSN on the system or by providing a full DSN-less connection string.",
+        "onchange": {
+          "Connect using a DSN (Data Source Name)": [
+            {
+              "title": "Data Source Name (DSN)",
+              "name": "dsn_name",
+              "type": "text",
+              "description": "Specify the Data Source Name to establish the ODBC connection.",
+              "tooltip": "Specify the Data Source Name to establish the ODBC connection.",
+              "required": true,
+              "editable": true,
+              "visible": true
+            }
+          ],
+          "Connect using a DSN-less connection": [
+            {
+              "title": "ODBC Driver Name",
+              "name": "driver",
+              "type": "text",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "The name of the installed ODBC driver to use.",
+              "description": "Name of the ODBC driver (as registered in the system), e.g., 'PostgreSQL', 'MySQL ODBC 8.0 Unicode Driver', or 'Simba Spark ODBC Driver'."
+            },
+            {
+              "title": "Hostname",
+              "name": "host",
+              "type": "text",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "Hostname of the workspace.",
+              "description": "Hostname of your cluster (e.g., adb-xxx.azuredatabricks.net)."
+            },
+            {
+              "title": "Database Name/Path",
+              "name": "database",
+              "type": "text",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "Name of the database to connect to. For SQLite, provide the full path to the .db file.",
+              "description": "Specify the database name (e.g., 'employees', 'testdb'). For SQLite, this should be the full file path to the .db file."
+            },
+            {
+              "title": "Port",
+              "name": "port",
+              "type": "integer",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "ODBC port number. Default is 443.",
+              "description": "Port used for the ODBC connection. Defaults to 443 if not specified.",
+              "value": 443
+            },
+            {
+              "title": "HTTP Path",
+              "name": "http_path",
+              "type": "text",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "Full HTTP Path used for the ODBC connection.",
+              "description": "Full HTTP Path used for the ODBC connection."
+            },
+            {
+              "title": "Authentication Method",
+              "name": "auth_mech",
+              "type": "integer",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "Authentication method for the ODBC driver. For tokens, use 3. Default is 3.",
+              "description": "Value for AuthMech parameter (use '3' when authenticating with a Databricks personal access token)."
+            },
+            {
+              "title": "Username",
+              "name": "username",
+              "type": "text",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "ODBC Username. Default is 'token'.",
+              "description": "Username for ODBC authentication. For Azure Databricks, this should be 'token'.",
+              "value": "token"
+            },
+            {
+              "title": "Personal Access Token",
+              "name": "token",
+              "type": "password",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "Personal access token used for authentication.",
+              "description": "Specify personal access token (PAT) used for authentication."
+            },
+            {
+              "title": "Enable SSL Encryption",
+              "name": "ssl",
+              "type": "integer",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "Enable SSL for secure connection. For Databricks specify 1.",
+              "description": "Enable SSL for secure encrypted communication. For Databricks specify 1.",
+              "value": 1
+            },
+            {
+              "title": "Thrift Transport Protocol",
+              "name": "thrift_transport",
+              "type": "integer",
+              "required": false,
+              "editable": true,
+              "visible": true,
+              "tooltip": "Specify the thrift transport. For Databricks specify 2.",
+              "description": "Specify the thrift transport. For Databricks specify 2.",
+              "value": 2
+            },
+            {
+              "title": "Additional Connection Settings",
+              "name": "extra_options",
+              "type": "text",
+              "description": "Any additional ODBC connection parameters (e.g., ReadOnly=1;Timeout=10;).",
+              "tooltip": "Specify any custom ODBC options not listed above.",
+              "required": false,
+              "editable": true,
+              "visible": true
+            }
+          ]
+        }
+      },
+      {
+        "title": "Enable Auto-Commit",
+        "name": "auto_commit",
+        "type": "checkbox",
+        "description": "Enable this option to automatically commit each SQL statement after execution without requiring an explicit commit.",
+        "tooltip": "If enabled, each SQL operation will be committed automatically. Disable it if you want to manage transactions manually.",
+        "required": false,
+        "editable": true,
+        "visible": true,
+        "value": true
+      }
+    ]
+  },
+  "operations": [
+    {
+      "operation": "execute_query",
+      "title": "Execute Query",
+      "category": "investigation",
+      "annotation": "execute_query",
+      "description": "Executes a custom SQL query on the connected ODBC data source and returns the result set.",
+      "parameters": [
+        {
+          "title": "Query",
+          "tooltip": "Specify the SQL query string to be executed on the target ODBC database.",
+          "name": "query",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "placeholder": "SELECT * FROM view WHERE email = 'xyz@cibc.com'",
+          "description": "Specify the SQL query string to be executed on the target ODBC database."
+        }
+      ],
+      "enabled": true,
+      "output_schema": {}
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "type": "workflow_collections",
+  "data": [
+    {
+      "uuid": "418f0379-e056-4ede-be8e-2df9153150f3",
+      "@type": "WorkflowCollection",
+      "name": "Sample - ODBC - 1.0.0",
+      "description": "ODBC (Open Database Connectivity) allows applications to access data from different database systems (e.g., MySQL, SQL Server, Oracle). It enables interoperability between applications and databases through an ODBC driver.",
+      "visible": true,
+      "image": null,
+      "recordTags": [
+        "Odbc",
+        "odbc"
+      ],
+      "workflows": [
+        {
+          "@type": "Workflow",
+          "uuid": "8229434d-734b-48c6-a3c8-c232e6519d51",
+          "collection": "/api/3/workflow_collections/418f0379-e056-4ede-be8e-2df9153150f3",
+          "triggerLimit": null,
+          "description": "Executes a custom SQL query on the connected ODBC data source and returns the result set.",
+          "name": "Execute Query",
+          "tag": "#ODBC",
+          "recordTags": [
+            "Odbc",
+            "odbc"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/01a23760-639f-41c1-ba90-2217113cdb21",
+          "steps": [
+            {
+              "uuid": "01a23760-639f-41c1-ba90-2217113cdb21",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "51e03b61-96d7-49c0-b0ad-aa97177e64b9",
+                "title": "ODBC: Execute Query",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "407036c8-af27-4c97-bf61-e6b312c3abb1",
+              "@type": "WorkflowStep",
+              "name": "Execute Query",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "ODBC",
+                "config": "''",
+                "params": [],
+                "version": "1.0.0",
+                "connector": "odbc",
+                "operation": "execute_query",
+                "operationTitle": "Execute Query"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "8e6c1fbc-f074-4b32-af9b-8abbe4fab513",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Execute Query",
+              "sourceStep": "/api/3/workflow_steps/01a23760-639f-41c1-ba90-2217113cdb21",
+              "targetStep": "/api/3/workflow_steps/407036c8-af27-4c97-bf61-e6b312c3abb1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
