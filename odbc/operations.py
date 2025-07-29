@@ -16,31 +16,17 @@ def connect_to_db(config):
         conn_str = f"DSN={config.get('dsn_name')};"
     else:
         conn_items = [
-            ("Driver", config.get("driver")),
-            ("Host", config.get("host")),
-            ("Port", config.get("port")),
             ("UID", config.get("username")),
             ("PWD", config.get("token")),
-            ("HTTPPath", config.get("http_path")),
-            ("AuthMech", config.get("auth_mech")),
-            ("SSL", config.get("ssl")),
-            ("ThriftTransport", config.get("thrift_transport")),
-            ("Database", config.get("database"))
         ]
         conn_str_parts = []
-        for key, value in conn_items:
-            if value is not None and value != "":
-                if key == "Driver":
-                    conn_str_parts.append(f"{key}={{{value}}}")
-                else:
-                    conn_str_parts.append(f"{key}={value}")
+        conn_str_parts.extend(f"{key}={value}" for key, value in conn_items if value not in (None, ""))
         conn_str = ";".join(conn_str_parts) + ";"
-        if config.get("extra_options"):
-            conn_str += config["extra_options"].strip().rstrip(";") + ";"
+        if config.get("connection_str"):
+            conn_str += config["connection_str"].strip().rstrip(";") + ";"
     try:
-        logger.error("The connection String is -------> {}".format(conn_str))
+        logger.debug("The connection String is -------> {}".format(conn_str))
         conn = pyodbc.connect(conn_str)
-        conn.autocommit = config.get("auto_commit")
         return conn
     except pyodbc.InterfaceError as ie:
         raise ConnectorError(f"Failed to connect using DSN '{config.get('dsn_name')}': {ie}")
