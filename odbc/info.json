@@ -7,7 +7,7 @@
   "cs_compatible": true,
   "version": "1.0.0",
   "category": "Database",
-  "help_online": "",
+  "help_online": "https://docs.fortinet.com/document/fortisoar/1.0.0/odbc/1753255600/odbc-v1-0-0",
   "icon_small_name": "small.png",
   "icon_large_name": "large.png",
   "configuration": {
@@ -24,7 +24,7 @@
         ],
         "name": "connection_type",
         "value": "Using DSN",
-        "description": "Select the method to establish the ODBC connection: either by using a pre-configured DSN on the system or by providing a full DSN-less connection string.",
+        "description": "Select the method to establish the ODBC connection. You can either use a pre-configured DSN (Connect using a DSN) on the system or or provide a full DSN-less connection string (Connect using a DSN-less connection).",
         "onchange": {
           "Connect using a DSN (Data Source Name)": [
             {
@@ -46,8 +46,8 @@
               "required": false,
               "editable": true,
               "visible": true,
-              "tooltip": "ODBC Username. Default is 'token'.",
-              "description": "Username for ODBC authentication. For Azure Databricks, this should be 'token'.",
+              "tooltip": "Specify the username for ODBC authentication. Note: For Azure Databricks, this should be 'token'.",
+              "description": "Specify the username for ODBC authentication. Note: For Azure Databricks, this should be 'token'.",
               "value": "token"
             },
             {
@@ -57,15 +57,15 @@
               "required": false,
               "editable": true,
               "visible": true,
-              "tooltip": "Personal access token used for authentication.",
-              "description": "Specify personal access token (PAT) used for authentication."
+              "tooltip": "Specify the personal access token (PAT) used for ODBC authentication.",
+              "description": "Specify the personal access token (PAT) used for ODBC authentication."
             },
             {
               "title": "Connection String",
               "name": "connection_str",
               "type": "text",
-              "description": "Specify the connection string to use to connect to database. E.g:. Driver={ODBC Driver 17 for SQL Server};Host=myserver.database.windows.net;Port=1433;UID=myuser;PWD=mypassword;SSL=1;Database=mydatabase;Encrypt=yes;TrustServerCertificate=no;\n",
-              "tooltip": "Specify the connection string to use to connect to database. E.g:. Driver={ODBC Driver 17 for SQL Server};Host=myserver.database.windows.net;Port=1433;UID=myuser;PWD=mypassword;SSL=1;Database=mydatabase;Encrypt=yes;TrustServerCertificate=no;\n",
+              "description": "Specify the connection string to use to connect to database. \nFor example, Driver={ODBC Driver 17 for SQL Server};Host=myserver.database.windows.net;Port=1433;UID=myuser;PWD=mypassword;SSL=1;Database=mydatabase;Encrypt=yes;TrustServerCertificate=no;",
+              "tooltip": "Specify the connection string to use to connect to database. \nFor example, Driver={ODBC Driver 17 for SQL Server};Host=myserver.database.windows.net;Port=1433;UID=myuser;PWD=mypassword;SSL=1;Database=mydatabase;Encrypt=yes;TrustServerCertificate=no;",
               "required": false,
               "placeholder": "Driver={ODBC Driver 17 for SQL Server};Host=myserver.database.windows.net;Port=1433;UID=myuser;PWD=mypassword;SSL=1;Database=mydatabase;Encrypt=yes;TrustServerCertificate=no;",
               "editable": true,
@@ -82,18 +82,18 @@
       "title": "Execute Query",
       "category": "investigation",
       "annotation": "execute_query",
-      "description": "Executes a custom SQL query on the connected ODBC data source and returns the result set.",
+      "description": "Executes a custom SQL query on the connected ODBC data source and returns the query results.",
       "parameters": [
         {
           "title": "Query",
-          "tooltip": "Specify the SQL query string to be executed on the target ODBC database.",
+          "tooltip": "Specify the SQL query to execute on the target ODBC database.",
           "name": "query",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "text",
           "placeholder": "SELECT * FROM view WHERE email = 'xyz@cibc.com'",
-          "description": "Specify the SQL query string to be executed on the target ODBC database."
+          "description": "Specify the SQL query to execute on the target ODBC database."
         }
       ],
       "enabled": true,
