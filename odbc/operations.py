@@ -27,6 +27,7 @@ def connect_to_db(config):
     try:
         logger.debug("The connection String is -------> {}".format(conn_str))
         conn = pyodbc.connect(conn_str)
+        conn.autocommit = True
         return conn
     except pyodbc.InterfaceError as ie:
         raise ConnectorError(f"Failed to connect using DSN '{config.get('dsn_name')}': {ie}")
@@ -39,6 +40,8 @@ def execute_query(config, params):
         with connect_to_db(config) as conn:
             with conn.cursor() as cursor:
                 cursor.execute(params.get('query'))
+                if cursor.description is None:
+                    return {"message": "Query executed successfully"}
                 columns = [column[0] for column in cursor.description]
                 return [dict(zip(columns, row)) for row in cursor.fetchall()]
     except pyodbc.ProgrammingError as pe:
